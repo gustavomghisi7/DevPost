@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-export default function PostUser() {
+export default function PostsUser() {
     return (
         <View>
-            <Text>Página PostUser</Text>
+            <Text>Página PostsUser</Text>
         </View>
     );
 }

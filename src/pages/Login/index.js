@@ -43,8 +43,8 @@ export default function Login() {
     if(login){
         return(
             <Container>
-                <Title>Dev
-                    <Text style={{ color: '#E52246'}}>Post</Text>
+                <Title>Logo
+                    <Text style={{ color: '#E52246'}}>Aqui</Text>
                 </Title>
 
                 <Input
@@ -80,8 +80,8 @@ export default function Login() {
     //SignUp
     return (
         <Container>
-            <Title>Dev
-                <Text style={{ color: '#E52246'}}>Post</Text>
+            <Title>Logo
+                <Text style={{ color: '#E52246'}}>Aqui</Text>
             </Title>
 
             <Input
