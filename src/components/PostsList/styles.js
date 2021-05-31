@@ -50,7 +50,7 @@ export const LikeButton = styled.TouchableOpacity`
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    background-color: #DDD;
+    background-color: #FFF;
 `
 
 export const Like = styled.Text`

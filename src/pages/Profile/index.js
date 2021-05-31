@@ -1,8 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/auth';
 import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
+import ImagePicker from 'react-native-image-picker';
 
-import { Modal } from 'react-native';
+import { Modal, Platform } from 'react-native';
 
 import {
     Container,
@@ -28,6 +30,20 @@ export default function Profile() {
     const [nome, setNome] = useState(user?.nome)
     const [url, setUrl] = useState(null);
     const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        async function load(){
+            try{
+                let response = await storage().ref('users').child(user?.uid).getDownloadURL();
+                setUrl(response);
+            } catch(err){
+                console.log('ERROR, Nenhuma foto foi encontrada.');
+            }
+        }
+
+        load();
+    }, []);
+
 
     //Atualizar Perfil
     async function updateProfile(){
@@ -63,6 +79,59 @@ export default function Profile() {
         
     }
 
+    const uploadFile = () => {
+        const options = {
+            noData: true,
+            mediaType: 'photo'
+        };
+
+        ImagePicker.launchImageLibrary(options, response => {
+            if (response.didCancel){
+                console.log('Cancelou o Modal.');
+            } else if (response.error){
+                console.log('Parece que deu algum erro: ' + response.error);
+            } else {
+                uploadFileFirebase(response)
+                .then( () => {
+                    uploadAvatarPosts();
+                })
+                setUrl(response.uri);
+            }
+        })
+    }
+
+    const getFileLocalPath = response => {
+        const { path, uri} = response;
+        return Platform.OS === 'android' ? path : uri;
+    }
+
+    const uploadFileFirebase = async response => {
+        const fileSource = getFileLocalPath(response);
+        const storageRef = storage().ref('users').child(user?.uid);
+        return await storageRef.putFile(fileSource)
+    };
+
+    async function uploadAvatarPosts(){
+        const storageRef = storage().ref('users').child(user?.uid);
+        const url = await storageRef.getDownloadURL()
+        .then( async image => {
+            //Atualizar todos avatarUrl dos posts desse user
+            const postDocs = await firestore().collection('posts')
+            .where('userId', '==', user.uid).get();
+
+            postDocs.forEach( async doc => {
+                await firestore().collection('posts').doc(doc.id).update({
+                    avatarUrl: image
+                })
+            })
+        })
+
+        .catch(() => {
+            console.log(error);
+        })
+
+    }
+
     return (
         <Container>
             <Header/>
@@ -70,7 +139,7 @@ export default function Profile() {
             {
                 url ?
                 (
-                    <UploadButton onPress={ () => alert('Clicou') }>
+                    <UploadButton onPress={ uploadFile }>
                         <UploadText>+</UploadText>
                         <Avatar
                             source={{ uri: url }}
@@ -78,7 +147,7 @@ export default function Profile() {
                     </UploadButton>
                 ) : 
                 (
-                    <UploadButton onPress={ () => alert('Clicou') }>
+                    <UploadButton onPress={ uploadFile }>
                         <UploadText>+</UploadText>
                     </UploadButton>
                 )
@@ -96,7 +165,7 @@ export default function Profile() {
             </Button>
 
             <Modal visible={open} animationType="slide" transparent={true} >
-                <ModalContainer>
+                <ModalContainer behavior={ Platform.OS === 'android' ? '' : 'padding' } >
                     <ButtonBack onPress={ () => setOpen(false) }>
                         <Feather
                             name="arrow-left"
