@@ -40,7 +40,7 @@ function StackScreen(){
                 options={{
                     headerTintColor: '#FFF',
                     headerStyle:{
-                        backgroundColor: '#36383F'
+                        backgroundColor: '#36393F'
                     }
                 }}
             />

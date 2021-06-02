@@ -76,7 +76,6 @@ export default function Profile() {
         setUser(data);
         storageUser(data);
         setOpen(false);
-        
     }
 
     const uploadFile = () => {
@@ -126,7 +125,7 @@ export default function Profile() {
             })
         })
 
-        .catch(() => {
+        .catch((error) => {
             console.log(error);
         })
 

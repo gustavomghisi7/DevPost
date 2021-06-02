@@ -35,9 +35,11 @@ export default function PostsUser({ route }) {
                     ...doc.data(),
                     id: doc.id
                 });
+                console.log(postList);
+                console.log(snapshot);
             });
 
-            setPosts(postsList);
+            setPosts(postList);
             setLoading(false);
         });
 

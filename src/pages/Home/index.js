@@ -16,7 +16,7 @@ export default function Home() {
     const [loading, setLoading] = useState(true);
     const { user } = useContext(AuthContext);
 
-    useEffect(() => {
+    useEffect( () => {
 
         const subscriber = firestore()
         .collection('posts')
@@ -48,7 +48,7 @@ export default function Home() {
             { loading ? 
                 (
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <ActivityIndicator size={50} color="#E52226" />
+                        <ActivityIndicator size={50} color="#E52246" />
                     </View>
                 ) : 
                 (

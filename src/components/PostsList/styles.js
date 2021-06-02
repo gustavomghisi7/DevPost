@@ -6,8 +6,7 @@ export const Container = styled.View`
     background-color: #FFF;
     padding: 11px;
     border-radius: 8px;
-    box-shadow: 1px 1px 3px rgba(18, 18, 18, 0.2);
-    elevation: 3;
+    box-shadow: 5px 5px 10px rgba(18, 18, 18, 0.2);
 `;
 
 export const Header = styled.TouchableOpacity`
@@ -31,7 +30,7 @@ export const Name = styled.Text`
 `;
 
 export const ContentView = styled.View`
-
+    flex: 1;
 `;
 
 export const Content = styled.Text`

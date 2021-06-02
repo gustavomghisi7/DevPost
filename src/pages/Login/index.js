@@ -52,7 +52,7 @@ export default function Login() {
                 </TitleAnimated>
 
                 <Input
-                    placeholder="seuemail@provedor.com"
+                    placeholder="email@email.com"
                     value={email}
                     onChangeText={ (text) => setEmail(text) }
                 />
@@ -95,7 +95,7 @@ export default function Login() {
             />
 
             <Input
-                placeholder="seuemail@provedor.com"
+                placeholder="email@email.com"
                 value={email}
                 onChangeText={ (text) => setEmail(text) }
             />

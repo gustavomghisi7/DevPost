@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
 
 import SearchList from '../../components/SearchList';
 import firestore from '@react-native-firebase/firestore';
@@ -63,7 +62,6 @@ export default function Search() {
                 keyExtractor={ (item) => item.id }
                 renderItem={ ({ item }) => <SearchList data={item} />}
             />
-
             
         </Container>
     );

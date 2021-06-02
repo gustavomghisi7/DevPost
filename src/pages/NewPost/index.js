@@ -9,10 +9,11 @@ import { Container, Input, Button, ButtonText } from './styles';
 
 export default function NewPost() {
     const navigation = useNavigation();
+
     const [post, setPost] = useState('');
     const { user } = useContext(AuthContext);
 
-    useLayoutEffect(() => {
+    useLayoutEffect( () => {
         const options = navigation.setOptions({
             headerRight: () => (
                 <Button onPress={ () => handlePost() }>
@@ -46,11 +47,11 @@ export default function NewPost() {
             avatarUrl,
             userId: user.uid,
         })
-        .then(() => {
+        .then( () => {
             setPost('');
-            console.log('Post criado com sucesso');
+            console.log('Post criado com sucesso.');
         })
-        .catch(() => {
+        .catch( () => {
             console.log(error);
         })
 
