@@ -1,4 +1,4 @@
-package com.devpostapp;
+package com.devpost;
 
 import com.facebook.react.ReactActivity;
 
